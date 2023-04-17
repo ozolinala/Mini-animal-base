@@ -17,11 +17,21 @@ import './App.css'
 
 function App() {
 const animals = cleanUpData();
+const [filter, setFilter] = useState("")
 console.log(animals);
+let filteredAnimals = [...animals];
+
+if(filter){
+  filteredAnimals = filteredAnimals.filter(ani=>ani.type===filter)
+}
 
   return (
     <div className="App">
       <h1>Mini Animal Base </h1>
+      <button onClick={()=>setFilter("cat")}>Only Cats</button>
+      <button onClick={()=>setFilter("dog")}>Only Dogs</button>
+      <button onClick={()=>setFilter("dragon")}>Only Dragons</button>
+      <button onClick={()=>setFilter("")}>All</button>
       <table>
         <thead>
           <tr>
@@ -32,8 +42,7 @@ console.log(animals);
           </tr>
         </thead>
         <tbody>
-          {
-            animals.map((animal) => (
+          {filteredAnimals.map((animal) => (
             <tr>
               <td>{animal.name}</td>
               <td>{animal.trait}</td>
